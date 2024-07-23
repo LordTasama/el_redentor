@@ -14,9 +14,7 @@
 
     <!-- Custom fonts for this template-->
 
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+
 
         @vite(['resources/sass/app.scss'])
 
@@ -130,9 +128,22 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTablas"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Tablas</span>
+                </a>
+                <div id="collapseTablas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Seleccione una tabla:</h6>
+                        <a class="collapse-item" href="/guardias">Guardias</a>
+                  
+                        <a class="collapse-item" href="/visitantes">Visitantes</a>
+                        <a class="collapse-item" href="/prisioneros">Prisioneros</a>
+                        <a class="collapse-item" href="/visitas">Visitas</a>
+                  
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -418,4 +429,4 @@
 
 </body>
 
-</html>c
+</html>
