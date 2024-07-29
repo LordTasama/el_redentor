@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VisitaRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\Auth;
 class VisitaController extends Controller
 {
     /**
@@ -17,9 +17,18 @@ class VisitaController extends Controller
     public function index(Request $request): View
     {
         $visitas = Visita::paginate();
-
+        $user = Auth::user();
+        $auth = $user->auth;
+        switch($auth){
+        case 0:
+            return view('waiting');
+        default:
         return view('visita.index', compact('visitas'))
-            ->with('i', ($request->input('page', 1) - 1) * $visitas->perPage());
+        ->with('i', ($request->input('page', 1) - 1) * $visitas->perPage());   
+        }
+        
+
+     
     }
 
     /**

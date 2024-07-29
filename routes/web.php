@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\GuardiaController;
 use App\Http\Controllers\PrisioneroController;
 use App\Http\Controllers\VisitaController;
 use App\Http\Controllers\VisitanteController;
@@ -13,8 +12,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/logout',[App\Http\Controllers\Auth\LoginController::class, 'logout']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/guardias', GuardiaController::class)->middleware('auth');
 Route::resource('/visitas', VisitaController::class)->middleware('auth');
 Route::resource('/visitantes', VisitanteController::class)->middleware('auth');
 Route::resource('/prisioneros', PrisioneroController::class)->middleware('auth');

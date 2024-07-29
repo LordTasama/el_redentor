@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VisitanteRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\Auth;
 class VisitanteController extends Controller
 {
     /**
@@ -17,9 +17,16 @@ class VisitanteController extends Controller
     public function index(Request $request): View
     {
         $visitantes = Visitante::paginate();
-
+        $user = Auth::user();
+        $auth = $user->auth;
+        switch($auth){
+        case 0:
+            return view('waiting');
+        default:
         return view('visitante.index', compact('visitantes'))
-            ->with('i', ($request->input('page', 1) - 1) * $visitantes->perPage());
+        ->with('i', ($request->input('page', 1) - 1) * $visitantes->perPage()); 
+        }
+       
     }
 
     /**
@@ -27,6 +34,7 @@ class VisitanteController extends Controller
      */
     public function create(): View
     {
+        
         $visitante = new Visitante();
 
         return view('visitante.create', compact('visitante'));

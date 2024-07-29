@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PrisioneroRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\Auth;
 class PrisioneroController extends Controller
 {
     /**
@@ -17,9 +17,16 @@ class PrisioneroController extends Controller
     public function index(Request $request): View
     {
         $prisioneros = Prisionero::paginate();
-
+        $user = Auth::user();
+        $auth = $user->auth;
+        switch($auth){
+        case 0:
+            return view('waiting');
+        default:
         return view('prisionero.index', compact('prisioneros'))
-            ->with('i', ($request->input('page', 1) - 1) * $prisioneros->perPage());
+        ->with('i', ($request->input('page', 1) - 1) * $prisioneros->perPage());   
+        }
+       
     }
 
     /**
