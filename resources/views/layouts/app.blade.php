@@ -71,19 +71,28 @@
 
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
+                <a class="nav-link collapsed"  href="{{ route('visitas.create') }}"
+                        aria-expanded="true" >
+                        <i class=" fa-regular fa-calendar"></i>
+                        <span>Establecer visita</span>
+                    </a>
+                
+                
+                
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
                         aria-expanded="true" aria-controls="collapseUtilities">
                         <i class="fas fa-fw fa-wrench"></i>
-                        <span>Utilities</span>
+                        <span>Gestión</span>
                     </a>
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Utilities:</h6>
-                            <a class="collapse-item" href="utilities-color.html">Colors</a>
-                            <a class="collapse-item" href="utilities-border.html">Borders</a>
-                            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a class="collapse-item" href="utilities-other.html">Other</a>
+                            <h6 class="collapse-header">Registros:</h6>
+                            <a class="collapse-item" href="{{ route('prisioneros.create') }}">Registrar prisionero</a>
+
+                   
+                            <a class="collapse-item"  href="{{ route('visitantes.create') }}">Registrar visitante</a>
+                           
                         </div>
                     </div>
                 </li>
@@ -136,7 +145,7 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Seleccione una tabla:</h6>
-                            <a class="collapse-item" href="/guardias">Guardias</a>
+                           <!--  <a class="collapse-item" href="/guardias">Guardias</a> -->
 
                             <a class="collapse-item" href="/visitantes">Visitantes</a>
                             <a class="collapse-item" href="/prisioneros">Prisioneros</a>

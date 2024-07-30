@@ -12,13 +12,13 @@
             {!! $errors->first('prisionero_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="inicio_visita" class="form-label">{{ __('Iniciovisita') }}</label>
-            <input type="text" name="inicioVisita" class="form-control @error('inicioVisita') is-invalid @enderror" value="{{ old('inicioVisita', $visita?->inicioVisita) }}" id="inicio_visita" placeholder="Iniciovisita">
+            <label for="inicio_visita" class="form-label">{{ __('Inicio de la visita') }}</label>
+            <input type="date" name="inicioVisita" class="form-control @error('inicioVisita') is-invalid @enderror" value="{{ old('inicioVisita', $visita?->inicioVisita) }}" id="inicio_visita" placeholder="Inicio de la visita">
             {!! $errors->first('inicioVisita', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="fin_visita" class="form-label">{{ __('Finvisita') }}</label>
-            <input type="text" name="finVisita" class="form-control @error('finVisita') is-invalid @enderror" value="{{ old('finVisita', $visita?->finVisita) }}" id="fin_visita" placeholder="Finvisita">
+            <label for="fin_visita" class="form-label">{{ __('Fin de la visita') }}</label>
+            <input type="date" name="finVisita" class="form-control @error('finVisita') is-invalid @enderror" value="{{ old('finVisita', $visita?->finVisita) }}" id="fin_visita" placeholder="Fin de la visita">
             {!! $errors->first('finVisita', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 

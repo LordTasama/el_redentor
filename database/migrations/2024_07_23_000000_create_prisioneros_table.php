@@ -13,8 +13,8 @@ class CreatePrisionerosTable extends Migration
             $table->id();
             $table->string('nombres');
             $table->string('apellidos');
-            $table->date('nacimiento');
-            $table->date('ingreso');
+            $table->dateTime('nacimiento')->format('Y-m-d'); 
+            $table->dateTime('ingreso')->format('Y-m-d'); 
             $table->string('delito');
             $table->string('celda');
             $table->timestamps();

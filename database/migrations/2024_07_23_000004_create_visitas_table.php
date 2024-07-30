@@ -13,8 +13,10 @@ class CreateVisitasTable extends Migration
             $table->id();
             $table->foreignId('visitante_id')->constrained('visitantes');
             $table->foreignId('prisionero_id')->constrained('prisioneros');
-            $table->dateTime('inicioVisita');
-            $table->dateTime('finVisita');
+            $table->dateTime('inicioVisita')->format('Y-m-d'); 
+            $table->dateTime('finVisita')->format('Y-m-d'); 
+          
+
             $table->timestamps();
         });
     }
