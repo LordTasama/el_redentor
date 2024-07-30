@@ -81,11 +81,10 @@
                                     <div class="col-12">
                                         <div
                                             class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center mt-5">
+                                            <p class="link-secondary text-decoration-none">¿Ya tienes una cuenta?</p>
                                             <a href="{{route('register')}}"
                                                 class="link-secondary text-decoration-none">Registrarme</a>
-                                            <a href="{{ route('password.request') }}"
-                                                class="link-secondary text-decoration-none">¿Olvidaste tu
-                                                contraseña?</a>
+
                                         </div>
                                     </div>
                                 </div>
