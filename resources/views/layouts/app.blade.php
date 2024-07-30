@@ -74,7 +74,7 @@
                 <a class="nav-link collapsed"  href="{{ route('visitas.create') }}"
                         aria-expanded="true" >
                         <i class=" fa-regular fa-calendar"></i>
-                        <span>Establecer visita</span>
+                        <span>Establecer nueva visita</span>
                     </a>
                 
                 
