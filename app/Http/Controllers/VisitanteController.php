@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VisitanteRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Database\QueryException;
 
 class VisitanteController extends Controller
 {
@@ -35,14 +36,25 @@ class VisitanteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(VisitanteRequest $request): RedirectResponse
-    {
+    /**
+ * Store a newly created resource in storage.
+ */
+public function store(VisitanteRequest $request): RedirectResponse
+{
+    try {
         Visitante::create($request->validated());
 
         return Redirect::route('visitantes.index')
             ->with('success', 'Visitante created successfully.');
+    } catch (\Illuminate\Database\QueryException $e) {
+        if ($e->getCode() === '23000') {
+            return Redirect::back()
+                ->withErrors(['error' => 'Este documento ya se encuentra registrado']);
+        } else {
+            throw $e;
+        }
     }
-
+}
     /**
      * Display the specified resource.
      */

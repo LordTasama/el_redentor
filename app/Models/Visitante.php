@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $nombres
  * @property $apellidos
+ * @property $documento
  * @property $created_at
  * @property $updated_at
  *
@@ -27,7 +28,7 @@ class Visitante extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nombres', 'apellidos'];
+    protected $fillable = ['nombres', 'apellidos', 'documento'];
 
 
     /**

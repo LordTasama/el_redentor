@@ -12,6 +12,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// routes/web.php
+
+Route::get('/visitas/search-visitante-ids', [VisitaController::class, 'searchVisitanteIds']);
+Route::get('/visitas/search-prisionero-ids', [VisitaController::class, 'searchPrisioneroIds']);
 Route::get('/logout',[App\Http\Controllers\Auth\LoginController::class, 'logout']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/visitas', VisitaController::class)->middleware('auth');

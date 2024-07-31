@@ -24,6 +24,7 @@ class VisitanteRequest extends FormRequest
         return [
 			'nombres' => 'required|string',
 			'apellidos' => 'required|string',
+			'documento' => 'required|string',
         ];
     }
 }

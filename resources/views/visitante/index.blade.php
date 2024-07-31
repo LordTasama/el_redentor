@@ -16,6 +16,7 @@
                                 {{ __('Visitantes') }}
                             </span>
 
+                          
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -33,6 +34,7 @@
                                         
 									<th >Nombres</th>
 									<th >Apellidos</th>
+									<th >Documento</th>
 
                                         <th></th>
                                     </tr>
@@ -44,6 +46,7 @@
                                             
 										<td >{{ $visitante->nombres }}</td>
 										<td >{{ $visitante->apellidos }}</td>
+										<td >{{ $visitante->documento }}</td>
 
                                             <td>
                                                 <form action="{{ route('visitantes.destroy', $visitante->id) }}" method="POST">
@@ -51,7 +54,7 @@
                                                     <a class="btn btn-sm btn-success" href="{{ route('visitantes.edit', $visitante->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('¿Está seguro que lo desea eliminar?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -65,4 +68,6 @@
             </div>
         </div>
     </div>
+
+    
 @endsection

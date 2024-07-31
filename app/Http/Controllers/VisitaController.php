@@ -6,14 +6,40 @@ use App\Models\Visita;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\VisitaRequest;
+use App\Models\Prisionero;
+use App\Models\Visitante;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 
 class VisitaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+ 
+     public function searchVisitanteIds(Request $request): JsonResponse
+     {
+          $term = $request->query('term');
+          $visitanteIds = Visitante::where('documento', 'like', '%' . $term . '%')->select('id')->get()->map(function ($item) {
+            return ['id' => $item->id];
+        });
+    
+         return response()->json(['visitanteIds' => $visitanteIds]);
+     }
+
+     
+     public function searchPrisioneroIds(Request $request): JsonResponse
+     {
+          $term = $request->query('term');
+          $prisioneroIds = Prisionero::where('id', 'like', '%' . $term . '%')->select('id')->get()->map(function ($item) {
+            return ['id' => $item->id];
+        });
+    
+         return response()->json(['prisioneroIds' => $prisioneroIds]);
+     }
+    
+
     public function index(Request $request): View
     {
         $visitas = Visita::paginate();
@@ -27,9 +53,12 @@ class VisitaController extends Controller
      */
     public function create(): View
     {
+        $visitanteIds = Visita::pluck('visitante_id')->toArray();
+        $prisioneroIds = Visita::pluck('prisionero_id')->toArray();
+      
         $visita = new Visita();
-
-        return view('visita.create', compact('visita'));
+    
+        return view('visita.create', compact('visita', 'visitanteIds','prisioneroIds'));
     }
 
     /**

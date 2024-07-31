@@ -4,6 +4,8 @@
     {{ $visitante->name ?? __('Show') . " " . __('Visitante') }}
 @endsection
 
+
+
 @section('content')
     <section class="content container-fluid">
         <div class="row">
@@ -27,6 +29,10 @@
                                 <div class="form-group mb-2 mb20">
                                     <strong>Apellidos:</strong>
                                     {{ $visitante->apellidos }}
+                                </div>
+                                <div class="form-group mb-2 mb20">
+                                    <strong>Documento:</strong>
+                                    {{ $visitante->documento }}
                                 </div>
 
                     </div>
