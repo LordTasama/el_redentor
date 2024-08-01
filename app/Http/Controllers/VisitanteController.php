@@ -45,7 +45,7 @@ public function store(VisitanteRequest $request): RedirectResponse
         Visitante::create($request->validated());
 
         return Redirect::route('visitantes.index')
-            ->with('success', 'Visitante created successfully.');
+            ->with('success', 'Visitante registrado exitosamente.');
     } catch (\Illuminate\Database\QueryException $e) {
         if ($e->getCode() === '23000') {
             return Redirect::back()
@@ -83,7 +83,7 @@ public function store(VisitanteRequest $request): RedirectResponse
         $visitante->update($request->validated());
 
         return Redirect::route('visitantes.index')
-            ->with('success', 'Visitante updated successfully');
+            ->with('success', 'datos de visitante actualizados correctamente');
     }
 
     public function destroy($id): RedirectResponse

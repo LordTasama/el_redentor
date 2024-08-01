@@ -20,12 +20,18 @@ class VisitaController extends Controller
  
      public function searchVisitanteIds(Request $request): JsonResponse
      {
-          $term = $request->query('term');
-          $visitanteIds = Visitante::where('documento', 'like', '%' . $term . '%')->select('id')->get()->map(function ($item) {
-            return ['id' => $item->id];
-        });
-    
-         return response()->json(['visitanteIds' => $visitanteIds]);
+         $term = $request->query('term');
+         $visitantes = Visitante::where('documento', 'like', '%' . $term . '%')->select('id', 'documento')->get();
+     
+         $visitanteIds = $visitantes->map(function ($item) {
+             return ['id' => $item->id];
+         });
+     
+         $visitanteDocuments = $visitantes->map(function ($item) {
+             return ['documento' => $item->documento];
+         });
+     
+         return response()->json(['visitanteIds' => $visitanteIds, 'visitanteDocuments' => $visitanteDocuments]);
      }
 
      
@@ -69,7 +75,7 @@ class VisitaController extends Controller
         Visita::create($request->validated());
 
         return Redirect::route('visitas.index')
-            ->with('success', 'Visita created successfully.');
+            ->with('success', 'Visita establecida exitosamente.');
     }
 
     /**
@@ -87,9 +93,12 @@ class VisitaController extends Controller
      */
     public function edit($id): View
     {
+        $visitanteIds = Visita::pluck('visitante_id')->toArray();
+        $prisioneroIds = Visita::pluck('prisionero_id')->toArray();
+      
         $visita = Visita::find($id);
 
-        return view('visita.edit', compact('visita'));
+        return view('visita.edit', compact('visita', 'visitanteIds','prisioneroIds'));
     }
 
     /**
@@ -100,7 +109,7 @@ class VisitaController extends Controller
         $visita->update($request->validated());
 
         return Redirect::route('visitas.index')
-            ->with('success', 'Visita updated successfully');
+            ->with('success', 'visita actualizada correctamente');
     }
 
     public function destroy($id): RedirectResponse

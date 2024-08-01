@@ -44,7 +44,7 @@
                                 <tbody>
                                     @foreach ($prisioneros as $prisionero)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                            <td>{{ $prisionero->id }}</td>
                                             
 										<td >{{ $prisionero->nombres }}</td>
 										<td >{{ $prisionero->apellidos }}</td>

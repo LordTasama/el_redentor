@@ -22,10 +22,10 @@ class VisitaRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'visitante_id' => 'required',
-			'prisionero_id' => 'required',
-			'inicioVisita' => 'required',
-			'finVisita' => 'required',
-        ];
+            'visitante_id' => 'required',
+            'prisionero_id' => 'required', 
+            'inicioVisita' => 'required',
+            'finVisita' => 'required|after:inicioVisita',
+         ];
     }
 }

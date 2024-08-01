@@ -40,7 +40,7 @@ class PrisioneroController extends Controller
         Prisionero::create($request->validated());
 
         return Redirect::route('prisioneros.index')
-            ->with('success', 'Prisionero created successfully.');
+            ->with('success', 'Prisionero registrado exitosamente.');
     }
 
     /**
@@ -71,7 +71,7 @@ class PrisioneroController extends Controller
         $prisionero->update($request->validated());
 
         return Redirect::route('prisioneros.index')
-            ->with('success', 'Prisionero updated successfully');
+            ->with('success', 'datos de prisionero actualizado correctamente');
     }
 
     public function destroy($id): RedirectResponse

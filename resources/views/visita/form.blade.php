@@ -5,10 +5,10 @@
         <label for="visitante_id" class="form-label">{{ __('Visitante Id') }}</label>
              <!--On change show a list of ids like a search-->
          
-            <input type="text" name="visitante_id" class="form-control @error('visitante_id') is-invalid @enderror" value="{{ old('visitante_id', $visita?->visitante_id) }}" id="visitante_id" placeholder="Visitante Id" list="visitante-id-list" oninput="updateVisitanteDatalist(this.value)">
+            <input type="number" name="visitante_id" class="form-control @error('visitante_id') is-invalid @enderror" value="{{ old('visitante_id', $visita?->visitante_id) }}" id="visitante_id" placeholder="Documento del visitante" list="visitante-id-list" oninput="updateVisitanteDatalist(this.value)">
             <span  class=" pt-3" id="visitante-id-list">
                 @foreach($visitanteIds as $id)
-                    <option   value="{{ $id }}">{{ $id }}</option>
+                  
                 @endforeach
             </span>
           {!! $errors->first('visitante_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
@@ -21,22 +21,22 @@
         <label for="prisionero_id" class="form-label">{{ __('Prisionero Id') }}</label>
           <!--On change show a list of ids like a search-->
          
-            <input type="text" name="prisionero_id" class="form-control @error('prisionero_id') is-invalid @enderror" value="{{ old('prisionero_id', $visita?->prisionero_id) }}" id="prisionero_id" placeholder="Prisionero Id" list="prisionero-id-list" oninput="updatePrisioneroDatalist(this.value)">
+            <input type="number" name="prisionero_id" class="form-control @error('prisionero_id') is-invalid @enderror" value="{{ old('prisionero_id', $visita?->prisionero_id) }}" id="prisionero_id" placeholder="Id del prisionero" list="prisionero-id-list" oninput="updatePrisioneroDatalist(this.value)">
             <span  class=" pt-3" id="prisionero-id-list">
                 @foreach($prisioneroIds as $id)
-                    <option   value="{{ $id }}">{{ $id }}</option>
+          
                 @endforeach
             </span>
             {!! $errors->first('prisionero_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
             <label for="inicio_visita" class="form-label">{{ __('Inicio de la visita') }}</label>
-            <input type="date" name="inicioVisita" class="form-control @error('inicioVisita') is-invalid @enderror" value="{{ old('inicioVisita', $visita?->inicioVisita) }}" id="inicio_visita" placeholder="Inicio de la visita">
+            <input type="datetime-local" name="inicioVisita" class="form-control @error('inicioVisita') is-invalid @enderror" value="{{ old('inicioVisita', $visita?->inicioVisita) }}" id="inicio_visita" placeholder="Inicio de la visita">
             {!! $errors->first('inicioVisita', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
             <label for="fin_visita" class="form-label">{{ __('Fin de la visita') }}</label>
-            <input type="date" name="finVisita" class="form-control @error('finVisita') is-invalid @enderror" value="{{ old('finVisita', $visita?->finVisita) }}" id="fin_visita" placeholder="Fin de la visita">
+            <input type="datetime-local" name="finVisita" class="form-control @error('finVisita') is-invalid @enderror" value="{{ old('finVisita', $visita?->finVisita) }}" id="fin_visita" placeholder="Fin de la visita">
             {!! $errors->first('finVisita', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
@@ -47,7 +47,7 @@
 </div>
 </div>
 <script>
- function updateVisitanteDatalist(term) {
+function updateVisitanteDatalist(term) {
     const dataList = document.getElementById('visitante-id-list');
     const url = '/visitas/search-visitante-ids'; // URL of the searchVisitanteIds method
     const inputField = document.getElementById('visitante_id');
@@ -61,17 +61,22 @@
     fetch(url + '?term=' + term)
         .then(response => response.json())
         .then(data => {
-            const options = data.visitanteIds.map(item => item.id);
+            const options = data.visitanteIds.map((item, index) => {
+                return {
+                    id: item.id,
+                    documento: data.visitanteDocuments[index].documento
+                };
+            });
 
             dataList.innerHTML = '';
-            options.forEach(id => {
+            options.forEach(option => {
                 const button = document.createElement('button');
-                button.textContent = id;
+                button.textContent = `${option.id} - ${option.documento}`;
                 button.setAttribute("class","btn btn-primary m-1")
-                button.value = id;
+                button.value = option.id;
                 button.onclick = () => {
-                    inputField.value = id;
-                    dataList.innerHTML = ''; // Clear the options after selecting one
+                    inputField.value = option.id;
+                    dataList.innerHTML = ''; 
                 };
 
                 dataList.appendChild(button);
