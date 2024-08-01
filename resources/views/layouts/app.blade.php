@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{Vite::asset('resources/media/images/logo.png')}}" type="image/x-icon">
-    <title>{{ config('app.name', 'Laravel') }} - Panel de control</title>
+    <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
     <!-- Custom fonts for this template-->
     @vite(['resources/sass/app.scss'])
@@ -28,19 +28,25 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="d-column">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <img src="{{Vite::asset('resources/media/images/logo.png')}}" alt="LOGO" class="img-fluid"
+                                width="75" height="75">
+                        </div>
+
+                        <div class="text-light font-weight-bold text-decoration-none">
+                            {{ config('app.name', 'Laravel') }}</div>
                     </div>
-                    <div class="sidebar-brand-text mx-3">{{ config('app.name', 'Laravel') }}</div>
-                </a>
+
+                </div>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="/home">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Panel de control</span></a>
                 </li>
@@ -50,7 +56,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Interface
+                    {{__("Interface")}}
                 </div>
 
 
@@ -87,7 +93,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Addons
+                    {{__("Addons")}}
                 </div>
 
 
@@ -111,7 +117,13 @@
                         </div>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{route('reportes')}}">
+                        <i class="fa-solid fa-chart-area"></i>
+                        <span>Reportes</span>
+                    </a>
 
+                </li>
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -248,10 +260,12 @@
                         </ul>
 
                     </nav>
+
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
+
                         @yield('content')
                     </div>
                     <!-- /.container-fluid -->
