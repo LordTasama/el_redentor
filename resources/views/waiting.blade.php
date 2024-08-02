@@ -27,7 +27,9 @@
         <h2>No autorizado</h2>
         <p>
             Lo sentimos, no estás autorizado aún. Comunicate con un administrador para obtener el acceso</p>
+        <a href="{{route("logout")}}" rel="noreferrer noopener">Cerrar sesión y volver al inicio</a>
     </div>
+
 </body>
 
 </html>

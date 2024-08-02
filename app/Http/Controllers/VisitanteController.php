@@ -29,7 +29,11 @@ class VisitanteController extends Controller
         }
         
     }
+    public function allUsers(){
+        $visitantes = Visitante::all(); // Obtener todos los visitantes para la exportación
 
+        return $visitantes;
+    }
     /**
      * Show the form for creating a new resource.
      */

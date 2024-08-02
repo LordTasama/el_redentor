@@ -15,6 +15,7 @@
 
     <!-- Custom fonts for this template-->
     @vite(['resources/sass/app.scss'])
+    @vite(['resources/js/app.js'])
 
 </head>
 
@@ -314,8 +315,18 @@
             </div>
         </div>
     </div>
-    <!-- Custom scripts for all pages-->
-    @vite(['resources/js/app.js'])
+    @error('error')
+    <input type="text" id="messageError" value="{{$message}}" class="d-none">
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        alertify.notify(
+            document.querySelector("#messageError").value,
+            'error',
+            5);
+    });
+    </script>
+
+    @enderror
 
 </body>
 
