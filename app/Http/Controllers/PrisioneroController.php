@@ -88,6 +88,6 @@ class PrisioneroController extends Controller
         Prisionero::find($id)->delete();
 
         return Redirect::route('prisioneros.index')
-            ->with('success', 'Prisionero deleted successfully');
+            ->with('success', 'Prisionero eliminado correctamente');
     }
 }

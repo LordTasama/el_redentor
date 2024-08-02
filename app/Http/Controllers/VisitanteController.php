@@ -98,6 +98,6 @@ public function store(VisitanteRequest $request): RedirectResponse
         Visitante::find($id)->delete();
 
         return Redirect::route('visitantes.index')
-            ->with('success', 'Visitante deleted successfully');
+            ->with('success', 'Visitante eliminado correctamente');
     }
 }

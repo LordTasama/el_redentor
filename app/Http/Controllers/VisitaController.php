@@ -125,6 +125,6 @@ class VisitaController extends Controller
         Visita::find($id)->delete();
 
         return Redirect::route('visitas.index')
-            ->with('success', 'Visita deleted successfully');
+            ->with('success', 'Visita eliminada correctamente');
     }
 }
