@@ -11,15 +11,14 @@ use App\Models\Visitante;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-use Illuminate\Http\JsonResponse;
+
 use Illuminate\Support\Facades\Auth;
 class VisitaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
- 
-     public function searchVisitanteIds(Request $request): JsonResponse
+     public function searchVisitanteIds(Request $request)
      {
          $term = $request->query('term');
          $visitantes = Visitante::where('documento', 'like', '%' . $term . '%')->select('id', 'documento')->get();
@@ -36,7 +35,7 @@ class VisitaController extends Controller
      }
 
      
-     public function searchPrisioneroIds(Request $request): JsonResponse
+     public function searchPrisioneroIds(Request $request)
      {
           $term = $request->query('term');
           $prisioneroIds = Prisionero::where('id', 'like', '%' . $term . '%')->select('id')->get()->map(function ($item) {
@@ -80,8 +79,12 @@ class VisitaController extends Controller
      */
     public function store(VisitaRequest $request): RedirectResponse
     {
-        Visita::create($request->validated());
-
+        Visita::create($request->validate([
+            'visitante_id'=>['required','integer','exists:visitantes,id'],
+            'prisionero_id' => ['required', 'integer', 'exists:prisioneros,id'],
+            'inicioVisita' => ['required', 'date'],
+            'finVisita' => ['required', 'date'],
+        ]));
         return Redirect::route('visitas.index')
             ->with('success', 'Visita establecida exitosamente.');
     }

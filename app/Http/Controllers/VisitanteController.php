@@ -57,7 +57,7 @@ public function store(VisitanteRequest $request): RedirectResponse
 
         return Redirect::route('visitantes.index')
             ->with('success', 'Visitante registrado exitosamente.');
-    } catch (\Illuminate\Database\QueryException $e) {
+    } catch (QueryException $e) {
         if ($e->getCode() === '23000') {
             return Redirect::back()
                 ->withErrors(['error' => 'Este documento ya se encuentra registrado']);

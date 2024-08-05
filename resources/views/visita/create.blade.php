@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section("title","Establecer visita")
+
 
 @section('template_title')
 {{ __('Create') }} Visita

@@ -29,14 +29,14 @@
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <div class="d-flex align-items-center justify-content-center">
-                    <div class="d-column">
-                        <div class="sidebar-brand-icon rotate-n-15">
+                <div class="d-flex justify-content-center">
+                    <div class="d-column align-items-center">
+                        <div class="sidebar-brand-icon rotate-n-15 ms-2">
                             <img src="{{Vite::asset('resources/media/images/logo.png')}}" alt="LOGO" class="img-fluid"
-                                width="75" height="75">
+                                width="70" height="70">
                         </div>
 
-                        <div class="text-light font-weight-bold text-decoration-none">
+                        <div class="text-light font-weight-bold text-decoration-none mt-2">
                             {{ config('app.name', 'Laravel') }}</div>
                     </div>
 
@@ -45,12 +45,7 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="/home">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Panel de control</span></a>
-                </li>
+
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
@@ -118,6 +113,7 @@
                         </div>
                     </div>
                 </li>
+                @if (Auth::user()->auth == 1)
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="{{route('reportes')}}">
                         <i class="fa-solid fa-chart-area"></i>
@@ -125,6 +121,8 @@
                     </a>
 
                 </li>
+
+                @endif
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -323,6 +321,7 @@
             document.querySelector("#messageError").value,
             'error',
             5);
+
     });
     </script>
 

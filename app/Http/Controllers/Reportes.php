@@ -20,7 +20,7 @@ class Reportes extends Controller
             
         default:
         return Redirect::back()
-        ->withErrors(['error' => 'No tiene los permisos necesarios para ingresar.']);
+        ->withErrors(['error' => 'No tienes los permisos necesarios para ingresar.']);
 }
     
     }
