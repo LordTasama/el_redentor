@@ -23,8 +23,9 @@ class VisitantesExport implements FromCollection, WithHeadings
     {
         return [
             'ID',
-            'Documento',
-            // Añade más campos si es necesario
+            'Nombres',
+            'Apellidos',
+            'Número de documento',
         ];
     }
 }

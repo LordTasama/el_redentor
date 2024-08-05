@@ -24,9 +24,4 @@ class Reportes extends Controller
 }
     
     }
-    public function generarExcel()
-    {
-      
-    
-    }
 }

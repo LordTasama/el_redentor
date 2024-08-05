@@ -16,7 +16,9 @@ Auth::routes();
 
 // routes/web.php
 
-Route::get('/exportar-usuarios', [ExportController::class, 'export'])->name('exportar.usuarios');
+Route::get('/exportar-visitantes', [ExportController::class, 'exportVisitantes'])->name('exportar.visitantes');
+Route::get('/exportar-prisioneros', [ExportController::class, 'exportPrisioneros'])->name('exportar.prisioneros');
+Route::get('/exportar-visitas', [ExportController::class, 'exportVisitas'])->name('exportar.visitas');
 Route::get('/visitas/search-visitante-ids', [VisitaController::class, 'searchVisitanteIds']);
 Route::get('/visitas/search-prisionero-ids', [VisitaController::class, 'searchPrisioneroIds']);
 Route::get('/logout',[App\Http\Controllers\Auth\LoginController::class, 'logout']);
