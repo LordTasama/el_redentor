@@ -62,7 +62,10 @@
                             <div class="d-flex justify-content-center"><button type="button" class="btn btn-danger my-1"
                                     id="pdfVisitas" style="width:100%"><i class="fa-solid fa-download me-2"></i><strong
                                         class="me-1">Descargar
-                                        PDF</strong></button></div>
+                                        PDF</strong></button>
+
+                            </div>
+                            <strong class="text-center text-danger" id="errorVisitas"></strong>
                         </div>
                     </div>
                 </div>
@@ -110,8 +113,9 @@
                                     id="pdfPrisioneros" style="width:100%"><i
                                         class="fa-solid fa-download me-2"></i><strong class="me-1">Descargar
                                         PDF</strong></button></div>
-
+                            <strong class="text-center text-danger" id="errorPrisioneros"></strong>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -132,6 +136,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const pdfPrisioneros = document.querySelector("#pdfPrisioneros");
     const excelPrisioneros = document.querySelector("#excelPrisioneros")
 
+    // Error Message
+    const errorPrisioneros = document.querySelector("#errorPrisioneros");
+    const errorVisitas = document.querySelector("#errorVisitas")
     // Inputs
     const fechaInicialVisitas = document.querySelector("#fechaInicialVisitas");
     const fechaFinalVisitas = document.querySelector("#fechaFinalVisitas")
@@ -139,16 +146,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const fechaFinalPrisioneros = document.querySelector("#fechaFinalPrisioneros")
 
     pdfVisitas.addEventListener("click", () => {
-        handleFetch('visitas', 'PDF');
+        handleFetch('visitas', 'pdf');
     })
     excelVisitas.addEventListener("click", () => {
-        handleFetch('visitas', 'Excel');
+        handleFetch('visitas', 'xlsx');
     })
     pdfPrisioneros.addEventListener("click", () => {
-        handleFetch('prisioneros-rango', 'PDF');
+        handleFetch('prisioneros-rango', 'pdf');
     })
     excelPrisioneros.addEventListener("click", () => {
-        handleFetch('prisioneros-rango', 'Excel');
+        handleFetch('prisioneros-rango', 'xlsx');
     })
     const handleFetch = (option, option2) => {
         let startDate = '';
@@ -163,25 +170,40 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch("/exportar/" + option + "/" + option2 + "?fechaInicial=" + startDate + "&fechaFinal=" +
                 endDate)
             .then(res => {
-                if (!res.ok) {
-                    throw new Error('Network response was not ok');
+                if (res.status == 200) {
+                    return res.blob() // Convierte la respuesta en un Blob;
                 }
-                return res.blob(); // Convierte la respuesta en un Blob
+                return res.json();
             })
-            .then(blob => {
-                // Crea un enlace para descargar el archivo
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = option + '.xlsx'; // Nombre del archivo a descargar
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url); // Libera el objeto URL
+            .then(res => {
+                if (!res.error) {
+                    // Crea un enlace para descargar el archivo
+                    const url = window.URL.createObjectURL(res);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = option; // Nombre del archivo a descargar
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url); // Libera el objeto URL
+                    errorVisitas.innerHTML = "";
+                    errorPrisioneros.innerHTML = "";
+                } else {
+                    if (option == "visitas") {
+                        errorVisitas.innerHTML = "";
+                        Object.keys(res.error).forEach((item) => {
+                            errorVisitas.innerHTML += `<li>${res.error[item][0]}</li>`;
+                        })
+                    } else {
+                        errorPrisioneros.innerHTML = "";
+                        Object.keys(res.error).forEach((item) => {
+                            errorPrisioneros.innerHTML += `<li>${res.error[item][0]}</li>`;
+                        })
+                    }
+
+                }
             })
-            .catch(error => {
-                console.error('Error:', error); // Maneja posibles errores
-            });
+
     }
 
 
